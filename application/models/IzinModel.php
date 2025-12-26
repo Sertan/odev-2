@@ -3,10 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class IzinModel extends CI_Model {
 
-    public function __construct(){
-        parent::__construct();
-    }
-
     public function ekle($data){
         return $this->db->insert('izinler', $data);
     }
@@ -15,11 +11,24 @@ class IzinModel extends CI_Model {
         return $this->db->get('izinler')->result();
     }
 
-    public function durum_guncelle($id, $d){
+    public function onayla($id){
         $this->db->where('id', $id);
-        return $this->db->update('izinler', ["durum"=>$d]);
+        return $this->db->update('izinler', ['durum' => 'Onaylandı']);
     }
 
+    public function reddet($id, $sebep){
+        $this->db->where('id', $id);
+        return $this->db->update('izinler', [
+            'durum' => 'Reddedildi',
+            'red_sebep' => $sebep
+        ]);
+    }
+
+    public function sil($id){
+        $this->db->where('id', $id);
+        $this->db->delete('izinler');
+    }
 }
+
 
 

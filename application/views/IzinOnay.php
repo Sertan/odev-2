@@ -1,30 +1,35 @@
-<div class="container">
-    <h2>İzin Talepleri</h2>
-    <table>
-        <tr>
-            <th>Ad Soyad</th>
-            <th>Başlangıç</th>
-            <th>Bitiş</th>
-            <th>Sebep</th>
-            <th>Durum</th>
-            <th>İşlem</th>
-        </tr>
+<h2>Tüm İzin Talepleri</h2>
 
-        <?php foreach($izinler as $i): ?>
-        <tr>
-            <td><?= $i->adsoyad; ?></td>
-            <td><?= $i->baslangic; ?></td>
-            <td><?= $i->bitis; ?></td>
-            <td><?= $i->sebep; ?></td>
-            <td><?= $i->durum; ?></td>
-            <td>
-                <a href="<?= base_url('IzinOnay/onayla/'.$i->id); ?>" class="btn-onayla">Onayla</a>
-                <a href="<?= base_url('IzinOnay/reddet/'.$i->id); ?>" class="btn-red">Reddet</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
+<table border="1" cellpadding="6">
+<tr>
+    <th>İsim</th>
+    <th>Başlangıç</th>
+    <th>Bitiş</th>
+    <th>Sebep</th>
+    <th>Durum</th>
+    <th>Red Sebebi</th>
+    <th>İşlem</th>
+</tr>
+
+<?php foreach($izinler as $i): ?>
+<tr>
+    <td><?= $i->adsoyad ?></td>
+    <td><?= $i->baslangic ?></td>
+    <td><?= $i->bitis ?></td>
+    <td><?= $i->sebep ?></td>
+    <td><?= $i->durum ?></td>
+    <td><?= $i->red_sebep ?></td>
+    <td>
+        <?php if($i->durum == "Bekliyor"): ?>
+            <a href="<?= base_url('IzinOnay/onayla/'.$i->id); ?>">Onayla</a> |
+            <a href="<?= base_url('IzinOnay/reddet_formu/'.$i->id); ?>">Reddet</a> |
+        <?php endif; ?>
+        <a href="<?= base_url('IzinOnay/sil/'.$i->id); ?>">Sil</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+
 
 <style>
     body {
